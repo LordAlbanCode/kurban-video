@@ -48,8 +48,7 @@
             const code =
                 document.getElementById("code").value.trim();
 
-            const response =
-                await fetch("videos.json");
+            const response = await fetch(`videos/${code}.json`);
 
             const data =
                 await response.json();
