@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurban Video Sorgulama</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px 20px;
+        }
+
+        video {
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Kurban Video Sorgulama</h1>
+
+    <input id="code" placeholder="Bağış Kodunuz">
+    <button onclick="searchVideo()">Sorgula</button>
+
+    <div id="result"></div>
+
+    <script>
+
+        async function searchVideo() {
+
+            const code =
+                document.getElementById("code").value.trim();
+
+            const response =
+                await fetch("videos.json");
+
+            const data =
+                await response.json();
+
+            const result =
+                document.getElementById("result");
+
+            if (data[code]) {
+
+                result.innerHTML = `
+        <h3>${data[code].name}</h3>
+
+        <video controls>
+        <source src="${data[code].video}">
+        </video>
+
+        <br><br>
+
+        <a href="${data[code].video}" download>
+        Videoyu İndir
+        </a>
+        `;
+
+            } else {
+
+                result.innerHTML =
+                    "<p>Kod bulunamadı.</p>";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
